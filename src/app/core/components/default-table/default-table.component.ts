@@ -1,3 +1,4 @@
+import { isDataSource } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,8 +15,8 @@ export class DefaultTableComponent implements AfterViewInit {
   // INPUTS
   //@Input() isLoading: any;
   //@Input() paginate: boolean = true;
-  //@Input() style: boolean = false;
   @Input() columns: any;
+  @Input() tableStyle: string | undefined;
 
   // OUTPUTS
   //@Output() endLoading = new EventEmitter<any>();
@@ -58,7 +59,7 @@ export class DefaultTableComponent implements AfterViewInit {
         complete: () => {
           //this.endLoading.emit(false);
           //this.isLoading = false;
-        },
+        }
       })
     } else {
       this.dataSource.data = data;
@@ -81,7 +82,7 @@ export class DefaultTableComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('test');
+    //console.log('test');
     //this.dataSource.sort = this.sort;
     //this.dataSource.paginator = this.paginator;
   }

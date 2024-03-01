@@ -6,8 +6,7 @@
     <p>{{ column.header}}</p>
     <p>{{ column.cell}}</p>
 </ng-container>   -->
-
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" [ngClass]="tableStyle ? tableStyle : '' " >
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
         <mat-header-cell *matHeaderCellDef>
             <div> {{ column.header }} </div>

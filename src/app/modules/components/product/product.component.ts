@@ -26,15 +26,19 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    //this.loadSubscribe();
   }
 
   load(){
     this.dataSource$ = this.productService.getAll();
-/*     this.productService.getAll().subscribe({
+  }
+
+  loadSubscribe(){
+    this.productService.getAll().subscribe({
       next: (res) => {
         this.dataSource = res;
         console.log('teste');
       }
-    }); */
+    });
   }
 }
