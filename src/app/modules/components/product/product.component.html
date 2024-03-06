@@ -1,6 +1,7 @@
 <p>product works!</p>
 <div id="table">
     <div class="default-table">
-        <app-default-table [data]="dataSource$" [columns]="columns" [tableStyle]="'products-style'"></app-default-table>
+        <app-default-table [data]="dataSource" [columns]="columns" [tableStyle]="'products-style'" 
+        [isLoading]="isLoading" (endLoading)="isLoading=false"></app-default-table>
     </div>
 </div>

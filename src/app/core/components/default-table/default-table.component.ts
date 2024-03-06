@@ -13,13 +13,13 @@ import { Observable, isObservable } from 'rxjs';
 export class DefaultTableComponent implements AfterViewInit {
 
   // INPUTS
-  //@Input() isLoading: any;
-  //@Input() paginate: boolean = true;
+  @Input() isLoading: any;
   @Input() columns: any;
   @Input() tableStyle: string | undefined;
+  //@Input() paginate: boolean = true;
 
   // OUTPUTS
-  //@Output() endLoading = new EventEmitter<any>();
+  @Output() endLoading = new EventEmitter<any>();
   //@Output() pageChangedEvent = new EventEmitter<any>();
   //@Output() detailEvent = new EventEmitter<any>();
 
@@ -37,35 +37,34 @@ export class DefaultTableComponent implements AfterViewInit {
    *
    * @param {any} data - DataSource a ser considerado na definição.
    */
-  @Input() set data(data: any){    
-    if(!data){
-      //this.endLoading.emit(false);
-      //this.isLoading = false;
-      this.dataSource.data = [];
-    }
-
-    if(isObservable(data)){
-      data.subscribe({
-        next: (res: any) => {
-          //this.isLoading = true;
-          this.dataSource.data = res;
-        },
-        error: (error) => {
-          console.log(error.error.message);
-          this.dataSource = new MatTableDataSource();
-          //this.endLoading.emit(false);
-          //this.isLoading = false;
-        }, 
-        complete: () => {
-          //this.endLoading.emit(false);
-          //this.isLoading = false;
-        }
-      })
+  @Input() set data(data: any){
+    if(data){
+      if(isObservable(data)){
+        data.subscribe({
+          next: (res: any) => {            
+            this.dataSource.data = res;
+          },
+          error: (error) => {
+            console.log(error.error.message);
+            this.dataSource = new MatTableDataSource();
+            this.isLoading = false;
+            this.endLoading.emit(false);
+          }, 
+          complete: () => {
+            this.isLoading = false;
+            this.endLoading.emit(false);
+          }
+        })
+      } else {
+        this.dataSource.data = data;
+        this.isLoading = false;
+        this.endLoading.emit(false);
+      }
     } else {
-      this.dataSource.data = data;
-      //this.endLoading.emit(false);
-      //this.isLoading = false;
-    }
+      this.dataSource.data = [];
+      this.isLoading = false;
+      this.endLoading.emit(false);
+    }    
   }
   
   ngOnInit() {    
@@ -86,4 +85,5 @@ export class DefaultTableComponent implements AfterViewInit {
     //this.dataSource.sort = this.sort;
     //this.dataSource.paginator = this.paginator;
   }
+
 }

@@ -22,6 +22,8 @@ export class ProductComponent implements OnInit {
   //dataSource: any;
   dataSource = new MatTableDataSource();
   dataSource$: Observable<Product> | undefined;
+  isLoading: any;
+
   constructor(private productService: ProductService){}
 
   ngOnInit(): void {
@@ -30,10 +32,12 @@ export class ProductComponent implements OnInit {
   }
 
   load(){
+    this.isLoading = true;
     this.dataSource$ = this.productService.getAll();
   }
 
   loadSubscribe(){
+    this.isLoading = true;
     this.productService.getAll().subscribe({
       next: (res) => {
         this.dataSource = res;

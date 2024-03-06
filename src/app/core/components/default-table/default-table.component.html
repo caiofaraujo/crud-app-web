@@ -6,7 +6,11 @@
     <p>{{ column.header}}</p>
     <p>{{ column.cell}}</p>
 </ng-container>   -->
-<table mat-table [dataSource]="dataSource" [ngClass]="tableStyle ? tableStyle : '' " >
+<div id="loading" class="container w-0 m-auto" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<table mat-table [dataSource]="dataSource" *ngIf="!isLoading" [ngClass]="tableStyle ? tableStyle : '' " >
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
         <mat-header-cell *matHeaderCellDef>
             <div> {{ column.header }} </div>
@@ -18,4 +22,7 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" style="text-align: center; color: #fff">Nenhum registro encontrado.</td>
+    </tr>
 </table>
