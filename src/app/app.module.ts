@@ -17,8 +17,7 @@ import { initializer } from './app-init';
     MaterialModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
-    NoopAnimationsModule
+    AppRoutingModule    
   ],
   providers: [
     AppConfig,
